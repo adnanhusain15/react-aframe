@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useState, useEffect } from 'react'
+import { Box } from '@material-ui/core'
+import { createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles';
+import Scene from './Components.tsx/Scene';
+import InfoDrawer from './Components.tsx/InfoDrawer';
+import { TRoom, TScene } from './Model/Image360/@types';
+import VR360Images from './Screens/VR360Images';
+import AFRAME from './AframeWorker'
+AFRAME();
+//import { MyComponent } from 'react-aframe'
 
-function App() {
+export interface AppProps { }
+const App: FC<AppProps> = (props) => {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <VR360Images />
+    // <Box width='800px' margin='0 auto' display='flex'>
+    //   <InfoDrawer handleNewClick={handleNewClick} rooms={rooms} />
+    //   <Box flex={1}> <Scene currentRoomId={currentRoom} rooms={rooms} /></Box>
+    // </Box>
+  )
 }
 
-export default App;
+const useStyles = makeStyles<Theme>((theme) => {
+  return (createStyles({
+
+  }))
+})
+
+export default App
