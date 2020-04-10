@@ -8,7 +8,6 @@ export interface SkyProps {
 
 const SkyComponent: FC<SkyProps> = (props) => {
     const { sky = {} as TSky } = props;
-    console.log('sky ', sky.src)
     return (
         <a-sky {...sky}></a-sky>
 

@@ -1,36 +1,28 @@
-import React, { FC, useState, useEffect } from 'react'
-import { Box, Fab } from '@material-ui/core'
-import { createStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
-import Room from './Room';
+import React from 'react';
 import { TRoom } from '../Model/Image360/@types';
-import SkyComponent from './Sky';
 import Camera from './Camera';
 import Marker from './Marker';
+import SkyComponent from './Sky';
 
 
 export interface SceneProps {
     currentRoom: Partial<TRoom>
-}
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    interface Window {
-        AFRAME: any;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace JSX {
-        interface IntrinsicElements {
-            [k: string]: any;
-        }
+    currentMarkerId: string
+    refs: {
+        cam: React.MutableRefObject<any> | null
+        cur: React.MutableRefObject<any> | null
+        plane: React.MutableRefObject<any> | null
     }
 }
+
 
 
 
 const Scene = React.forwardRef<any, SceneProps>((props, ref) => {
     const classes = useStyles();
-    const { currentRoom = {} as TRoom } = props
-
+    const { currentRoom = {} as TRoom, refs, currentMarkerId } = props
     return (
         <>
             {currentRoom.id ? <a-scene>
@@ -38,15 +30,13 @@ const Scene = React.forwardRef<any, SceneProps>((props, ref) => {
                     sky={currentRoom.sky}
                 />
                 <Camera
-                    ref={ref}
+                    refs={refs}
                     camera={currentRoom.camera}
                 />
-                {/* <a-entity>
-
-                </a-entity> */}
                 {
                     (currentRoom.markers || []).map((i, index) => {
-                        return <Marker marker={i} key={index} />
+
+                        return (i.id === currentMarkerId) && <Marker marker={i} key={index} />
                     })
                 }
             </a-scene> : null

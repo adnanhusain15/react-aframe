@@ -1,12 +1,12 @@
-import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import NewRoomDialog from '../../Components.tsx/NewRoomDialog';
+import RoomCard from '../../Components.tsx/RoomCard';
 import { TRoom, TSky } from '../../Model/Image360/@types';
 import RoomView from './RoomView';
-import RoomCard from '../../Components.tsx/RoomCard';
-
+import { uniqueId } from 'lodash'
 export interface indexProps { }
 
 const VR360Images: FC<indexProps> = (props) => {
@@ -18,7 +18,7 @@ const VR360Images: FC<indexProps> = (props) => {
     const onSubmit = (data: { name: string, sky: TSky }) => {
         let list = [...rooms];
         let length = list.length;
-        list.push({ name: data.name, id: length.toString(), markers: [], sky: data.sky, camera: {} })
+        list.push({ name: data.name, id: uniqueId('Room_'), markers: [], sky: data.sky, camera: {} })
         setRooms([...list])
     }
     const onClose = () => {

@@ -10,6 +10,7 @@ export interface TPosition {
 }
 
 export interface TMarkers {
+    id: string
     src: string
     name?: string
     position: TPosition
